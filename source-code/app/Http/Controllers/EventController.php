@@ -46,6 +46,7 @@ class EventController extends Controller
     {
 
         $event = Event::where(['hash_id' => $hash_event_id])->first();
+
         $types = Type::all();
         return view('events.edit', compact('event', 'types'));
 
@@ -78,9 +79,29 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(\App\Http\Requests\CreateEventRequest $request, string $hash_event_id)
     {
-        //
+
+        $event = Event::where(['hash_id' => $hash_event_id])->first();
+        if (!empty($event)) {
+            $event->name = $request->name;
+            $event->description = $request->description;
+            $event->type_id = $request->type_id;
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images'), $imageName);
+                $event->image = $imageName;
+            }
+
+            $event->save();
+            session()->flash('update', "Event # $event->id updated successfully.");
+        }else{
+            session()->flash('update', "Event # $hash_event_id Not Found.");
+        }
+
+        return redirect()->route("events");
     }
 
     /**
