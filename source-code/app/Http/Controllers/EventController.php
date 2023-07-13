@@ -22,7 +22,12 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('events.index');
+
+        $events = Event::select('events.id', 'events.name', 'events.description', 'events.image', 'events.type_id', 'types.name AS event_type', 'events.hash_id')
+            ->leftJoin('types', 'types.id', '=', 'events.type_id')->get();
+
+        return view('events.index', compact('events'));
+
     }
 
     /**
