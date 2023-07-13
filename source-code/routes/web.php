@@ -28,3 +28,5 @@ Route::get('/edit/{hash_event_id}', [App\Http\Controllers\EventController::class
 
 
 Route::post('/store', [App\Http\Controllers\EventController::class, 'store'])->name('store');
+
+Route::get('/destroy/{hash_event_id}', [App\Http\Controllers\EventController::class, 'destroy'])->name('destroy');

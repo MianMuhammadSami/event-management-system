@@ -19,7 +19,19 @@
             </a>
 
             <hr/>
-            
+
+            @if (session('destroy'))
+                <div class="alert alert-danger">
+                    {{ session('destroy') }}
+                </div>
+            @endif
+            @if (session('update'))
+                <div class="alert alert-info">
+                    {{ session('update') }}
+                </div>
+            @endif
+
+
         </div>
 
         <div class="row">

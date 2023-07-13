@@ -82,8 +82,20 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $hash_event_id)
     {
-        //
+
+        $event = Event::where(['hash_id' => $hash_event_id])->first();
+
+        if ($event) {
+            $event->delete();
+            session()->flash('destroy', "Event # $event->id deleted successfully.");
+        } else {
+            session()->flash('destroy', "Event # $hash_event_id Not Found.");
+        }
+
+        return redirect()->route('events');
+
+
     }
 }
