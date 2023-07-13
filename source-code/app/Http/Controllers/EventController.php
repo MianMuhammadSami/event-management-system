@@ -11,7 +11,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        return view('events.index');
     }
 
     /**
@@ -19,29 +19,21 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('events.create');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $hash_event_id)
+    {
+        return view('events.edit');
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
     {
         //
     }
