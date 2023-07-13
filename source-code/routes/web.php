@@ -24,7 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/events', [App\Http\Controllers\EventController::class, 'index'])->name('events');
 Route::get('/create', [App\Http\Controllers\EventController::class, 'create'])->name('create');
-Route::get('/edit/{hash_event_id}', [App\Http\Controllers\EventController::class, 'create'])->name('edit');
+Route::get('/edit/{hash_event_id}', [App\Http\Controllers\EventController::class, 'edit'])->name('edit');
 
 
 Route::post('/store', [App\Http\Controllers\EventController::class, 'store'])->name('store');

@@ -44,7 +44,11 @@ class EventController extends Controller
      */
     public function edit(string $hash_event_id)
     {
-        return view('events.edit');
+
+        $event = Event::where(['hash_id' => $hash_event_id])->first();
+        $types = Type::all();
+        return view('events.edit', compact('event', 'types'));
+
     }
 
     /**
