@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use \App\Models\Type;
+use \App\Models\Event;
+use Illuminate\Support\Str;
+
 class EventController extends Controller
 {
 
@@ -26,7 +30,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('events.create');
+        $types = Type::all();
+        return view('events.create', compact('types'));
     }
 
     /**
@@ -43,7 +48,7 @@ class EventController extends Controller
     public function store(\App\Http\Requests\CreateEventRequest $request)
     {
         $event = new Event;
-        $event->hash_id = sha1($request->name.$request->description.$request->type_id);
+        $event->hash_id = Str::random(30);
         $event->name = $request->name;
         $event->description = $request->description;
         $event->type_id = $request->type_id;
