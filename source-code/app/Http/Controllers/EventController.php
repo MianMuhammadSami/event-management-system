@@ -42,7 +42,23 @@ class EventController extends Controller
      */
     public function store(\App\Http\Requests\CreateEventRequest $request)
     {
-        
+        $event = new Event;
+        $event->hash_id = sha1($request->name.$request->description.$request->type_id);
+        $event->name = $request->name;
+        $event->description = $request->description;
+        $event->type_id = $request->type_id;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $event->image = $imageName;
+        }
+
+        $event->save();
+        session()->flash('success', "Event created successfully, # $event->id");
+        return redirect()->route('create');
+
     }
 
     /**
